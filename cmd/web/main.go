@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/go-playground/form/v4"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jiteshchawla1511/snippetbox/internal/models"
 )
@@ -17,12 +18,13 @@ type application struct {
 	infoLog       *log.Logger
 	snippet       *models.SnippetModel
 	templateCache map[string]*template.Template
+	formDecoder   *form.Decoder
 }
 
 func main() {
 
 	addr := flag.String("addr", ":4000", "HTTP Network Address")
-	dsn := flag.String("dsn", "web:password@/snippetbox?parseTime=true", "MySQL data source name")
+	dsn := flag.String("dsn", "web:jitesh1511@/snippetbox?parseTime=true", "MySQL data source name")
 
 	flag.Parse()
 
@@ -43,11 +45,14 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
+	formDecoder := form.NewDecoder()
+
 	app := &application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
 		snippet:       &models.SnippetModel{DB: db},
 		templateCache: templateCache,
+		formDecoder:   formDecoder,
 	}
 
 	srv := &http.Server{
