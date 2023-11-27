@@ -20,7 +20,7 @@ func (app *application) routes() http.Handler {
 
 	// UNPROTECTED ROUTES
 
-	dynamic := alice.New(app.sessionManager.LoadAndSave)
+	dynamic := alice.New(app.sessionManager.LoadAndSave, app.noSurf, app.authenticate)
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 	router.Handler(http.MethodGet, "/snippet/view/:id",
 		dynamic.ThenFunc(app.snippetView))

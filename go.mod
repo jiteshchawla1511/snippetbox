@@ -12,10 +12,8 @@ require (
 	github.com/go-playground/form v3.1.4+incompatible
 	github.com/go-playground/form/v4 v4.2.1
 	github.com/julienschmidt/httprouter v1.3.0
+	github.com/justinas/nosurf v1.1.1
+	golang.org/x/crypto v0.15.0
 )
 
-require (
-	github.com/justinas/nosurf v1.1.1 // indirect
-	golang.org/x/crypto v0.15.0 // indirect
-	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
-)
+require gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
